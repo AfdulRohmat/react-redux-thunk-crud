@@ -3,6 +3,7 @@ import axios from "axios";
 // CREATE CONSTANT VARIABLE AS A TYPE
 export const GET_LIST_CONTACTS = "GET LIST CONTACTS";
 export const ADD_CONTACT = "ADD CONTACT";
+export const DELETE_CONTACT = "DELETE CONTACT";
 
 // CREATE FUNCTION THAT HANDLE ACTION
 
@@ -53,46 +54,91 @@ export const getListContacts = () => {
 
 // ADD / POST METHOD TO API
 export const addContact = (data) => {
-    return (dispacth) => {
-        // Loading
+  return (dispacth) => {
+    // Loading
+    dispacth({
+      type: ADD_CONTACT,
+      payload: {
+        loading: true,
+        data: false,
+        errorMessage: false,
+      },
+    });
+
+    // GET API
+    axios({
+      method: "POST",
+      url: "http://localhost:3000/contacts",
+      timeout: 120000,
+      data: data,
+    })
+      .then((response) => {
+        // SUCCESS DATA
+        console.log(response.data);
         dispacth({
           type: ADD_CONTACT,
           payload: {
-            loading: true,
-            data: false,
+            loading: false,
+            data: response.data,
             errorMessage: false,
           },
         });
-    
-        // GET API
-        axios({
-          method: "POST",
-          url: "http://localhost:3000/contacts",
-          timeout: 120000,
-          data: data
-        })
-          .then((response) => {
-            // SUCCESS DATA
-            console.log(response.data);
-            dispacth({
-              type: ADD_CONTACT,
-              payload: {
-                loading: false,
-                data: response.data,
-                errorMessage: false,
-              },
-            });
-          })
-          .catch((error) => {
-            // ERROR
-            dispacth({
-              type: ADD_CONTACT,
-              payload: {
-                loading: false,
-                data: false,
-                errorMessage: error.message,
-              },
-            });
-          });
-      };
-}
+      })
+      .catch((error) => {
+        // ERROR
+        dispacth({
+          type: ADD_CONTACT,
+          payload: {
+            loading: false,
+            data: false,
+            errorMessage: error.message,
+          },
+        });
+      });
+  };
+};
+
+// DELETE METHOD TO API
+export const deleteContact = (id) => {
+  return (dispacth) => {
+    // Loading
+    dispacth({
+      type: DELETE_CONTACT,
+      payload: {
+        loading: true,
+        data: false,
+        errorMessage: false,
+      },
+    });
+
+    // DELETE API
+    axios({
+      method: "DELETE",
+      url: `http://localhost:3000/contacts/${id}`,
+      timeout: 120000,
+    })
+      .then((response) => {
+        // SUCCESS DATA
+        console.log(response.data);
+        dispacth({
+          type: DELETE_CONTACT,
+          payload: {
+            loading: false,
+            data: response.data,
+            errorMessage: false,
+          },
+        });
+      })
+      .catch((error) => {
+        // ERROR
+        dispacth({
+          type: DELETE_CONTACT,
+          payload: {
+            loading: false,
+            data: false,
+            errorMessage: error.message,
+          },
+        });
+      });
+  };
+};

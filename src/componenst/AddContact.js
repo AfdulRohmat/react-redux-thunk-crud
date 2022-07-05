@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addContact, getListContacts } from "../actions/contactActions";
-import Loading from "./Loading";
 
 const AddContact = () => {
   const [name, setName] = useState("");
@@ -11,6 +10,11 @@ const AddContact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (name === "" || noHp === "") {
+      alert("name or phone number cannot be empty !");
+      return;
+    }
 
     // CALL ACTION ADD LIST CONTACT
     dispacth(addContact({ name: name, noHp: noHp }));
