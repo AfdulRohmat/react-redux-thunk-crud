@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getListContacts } from "../actions/contactActions";
+import Loading from "./Loading";
 
 const ListContacts = () => {
   const dispacth = useDispatch();
@@ -23,7 +24,10 @@ const ListContacts = () => {
         {getListContactData ? (
           getListContactData.map((contact, index) => {
             return (
-              <div key={contact.id} className="flex gap-2  text-base my-1 bg-white p-3 rounded-md shadow-md border-2">
+              <div
+                key={contact.id}
+                className="flex gap-2  text-base my-1 bg-white p-3 rounded-md shadow-md border-2"
+              >
                 <p>{index + 1}.</p>
                 <p className="font-semibold">{contact.name} -</p>
                 <p>{contact.noHp}</p>
@@ -31,7 +35,7 @@ const ListContacts = () => {
             );
           })
         ) : getListContactLoading ? (
-          <p>Loading data ...</p>
+          <Loading />
         ) : getListContactError ? (
           <p>Error</p>
         ) : (
