@@ -1,4 +1,5 @@
 import AddContact from "./componenst/AddContact";
+import Dialog from "./componenst/Dialog";
 import ListContacts from "./componenst/ListContacts";
 function App() {
   return (

@@ -1,6 +1,8 @@
 import { GET_LIST_CONTACTS } from "../../actions/contactActions";
 import { ADD_CONTACT } from "../../actions/contactActions";
 import { DELETE_CONTACT } from "../../actions/contactActions";
+import { CATCH_DETAIL_CONTACT } from "../../actions/contactActions";
+import { UPDATE_CONTACT } from "../../actions/contactActions";
 
 const initialState = {
   // GET LIST CONTACT STATE
@@ -17,6 +19,14 @@ const initialState = {
   deleteContactData: false,
   deleteContactLoading: false,
   deleteContactError: false,
+
+  // CATCH DETAIL CONTACT DATA
+  detailContactData: false,
+
+  // UPDATE CONTACT DATA
+  updateContactData: false,
+  updateContactLoading: false,
+  updateContactError: false,
 };
 
 const contactReducer = (state = initialState, action) => {
@@ -43,6 +53,20 @@ const contactReducer = (state = initialState, action) => {
         deleteContactData: action.payload.data,
         deleteContactLoading: action.payload.loading,
         deleteContactError: action.payload.errorMessage,
+      };
+
+    case CATCH_DETAIL_CONTACT:
+      return {
+        ...state,
+        detailContactData: action.payload.data,
+      };
+
+    case UPDATE_CONTACT:
+      return {
+        ...state,
+        updateContactData: action.payload.data,
+        aupdateontactLoading: action.payload.loading,
+        updateContactError: action.payload.errorMessage,
       };
 
     default:

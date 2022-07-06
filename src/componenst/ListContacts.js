@@ -1,10 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteContact, getListContacts } from "../actions/contactActions";
+import {
+  catchDetailContactAction,
+  deleteContact,
+  getListContacts,
+} from "../actions/contactActions";
 import Loading from "./Loading";
-import { MdDelete } from "react-icons/md";
+import { MdDelete, MdModeEditOutline } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Dialog from "./Dialog";
 
 const ListContacts = () => {
   const dispacth = useDispatch();
@@ -28,7 +33,12 @@ const ListContacts = () => {
   } = useSelector((state) => state.ContactReducer); // STATE NAME FROM COMBINE REDUCER
 
   const deleteData = (id) => {
+    <Dialog />
     dispacth(deleteContact(id));
+  };
+
+  const catchDetailContact = (data) => {
+    dispacth(catchDetailContactAction(data));
   };
 
   useEffect(() => {
@@ -63,11 +73,20 @@ const ListContacts = () => {
                   <p> - {contact.noHp} </p>
                 </div>
 
-                <div
-                  onClick={() => deleteData(contact.id)}
-                  className="cursor-pointer "
-                >
-                  <MdDelete />
+                <div className="flex gap-4 items-center">
+                  <div
+                    onClick={() => deleteData(contact.id)}
+                    className="cursor-pointer "
+                  >
+                    <MdDelete />
+                  </div>
+
+                  <div
+                    onClick={() => catchDetailContact(contact)}
+                    className="cursor-pointer "
+                  >
+                    <MdModeEditOutline />
+                  </div>
                 </div>
               </div>
             );
