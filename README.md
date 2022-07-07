@@ -1,3 +1,18 @@
+This repository covers how to implement redux (traditional redux / no redux toolkit) and redux thunk in React. This is a simple Contacts application which we can create/read/update/delete (CRUD) contacts from API (json server). All these features (CRUD) are done with redux state management and redux thunk to handle the API.
+
+# MAIN BRANCH
+-> main branch includes all CRUD features with redux and redux thunk
+
+# BRANCH
+-> to see each method (C/R/U/D) you can open each branch
+
+
+
+======================================================================================================================================================================
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
